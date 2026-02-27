@@ -7,7 +7,9 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: "delete", id: number): void;
+  (e: "details", id: number): void;
 }>();
+
 </script>
 
 <template>
@@ -54,7 +56,8 @@ const emit = defineEmits<{
             <td>
               <div class="poe-actions">
                 <div class="col">
-                  <button class="poe-btn poe-details">Show details</button>
+                  <button class="poe-btn poe-details"
+                  @click="emit('details', item.id)">Show details</button>
                   <button
                     class="poe-btn poe-delete"
                     @click="emit('delete', item.id)"
