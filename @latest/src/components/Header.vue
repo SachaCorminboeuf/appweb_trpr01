@@ -8,7 +8,7 @@
       alt="Logo Path of Exile" 
       class="poe-logo"
     />
-    <p class="poe-title">Path Of Exile Trading Hall</p>
+    <p class="poe-title">Path Of Exile 2 Trading Hall</p>
   </header>
 </template>
 

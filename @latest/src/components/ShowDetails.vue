@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Item } from "../scripts/item";
 
 interface Props {
   id: number;
@@ -145,7 +144,6 @@ const emit = defineEmits<{
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
 }
 
 .poe-full {
