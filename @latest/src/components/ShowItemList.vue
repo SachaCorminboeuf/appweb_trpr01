@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import items from "../scripts/item";
+import type { Item } from "../scripts/item";
+
+const props = defineProps<{
+  items: Item[];
+}>();
+
+const emit = defineEmits<{
+  (e: "delete", id: number): void;
+}>();
 </script>
 
 <template>
@@ -17,7 +25,7 @@ import items from "../scripts/item";
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in items" :key="item.id">
+          <tr v-for="item in props.items" :key="item.id">
             <td>
               <div class="poe-box">
                 {{ item.id }}
@@ -45,11 +53,21 @@ import items from "../scripts/item";
             </td>
             <td>
               <div class="poe-actions">
-                <button class="poe-btn poe-delete" @click="$emit('delete', item.id)">
-                  Delete
-                </button>
-                <button class="poe-btn poe-edit">Edit</button>
-                <button class="poe-btn poe-duplicate">Duplicate</button>
+                <div class="col">
+                  <button class="poe-btn poe-details">Show details</button>
+                  <button
+                    class="poe-btn poe-delete"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    @click="emit('delete', item.id)"
+                  >
+                    Delete
+                  </button>
+                </div>
+                <div class="col">
+                  <button class="poe-btn poe-edit">Edit</button>
+                  <button class="poe-btn poe-duplicate">Duplicate</button>
+                </div>
               </div>
             </td>
           </tr>
@@ -77,7 +95,7 @@ import items from "../scripts/item";
   width: 100%;
   border-collapse: collapse;
   color: #f0f0f0;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   font-size: 14px;
 }
 
@@ -103,7 +121,9 @@ import items from "../scripts/item";
   margin: 4px 0;
   min-height: 20px;
   text-align: center;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.3);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
 }
 
@@ -155,6 +175,10 @@ import items from "../scripts/item";
 .poe-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+.poe-details {
+  background: linear-gradient(145deg, #00cc66, #00994d);
+  color: white;
 }
 
 @media (max-width: 768px) {
