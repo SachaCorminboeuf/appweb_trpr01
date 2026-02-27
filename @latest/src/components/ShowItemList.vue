@@ -57,8 +57,6 @@ const emit = defineEmits<{
                   <button class="poe-btn poe-details">Show details</button>
                   <button
                     class="poe-btn poe-delete"
-                    data-toggle="modal"
-                    data-target="#exampleModal"
                     @click="emit('delete', item.id)"
                   >
                     Delete
