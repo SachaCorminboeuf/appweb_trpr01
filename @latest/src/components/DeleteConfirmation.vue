@@ -13,7 +13,7 @@ const emit = defineEmits<{
 }>()
 
 </script>
-
+<!-- L'IA a généré le modal pour moi, la logic du emit a été faite par moi -->
 <template>
   <div class="poe-modal-overlay" @click.self="$emit('cancel')">
     <div class="poe-modal-content">

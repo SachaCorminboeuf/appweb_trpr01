@@ -1,7 +1,7 @@
 > **Cours :** 420-W40-SF - Développement d’applications Web (Cégep de Sainte-Foy)  
 > **Travail :** TP01 - Gestionnaire de produits  
-> **Étudiant(e) :** {{ Sacha Ostiguy-Corminboeuf }}
-> **Période :** {{ 2026-02-20 }} → {{ 2026-02-27 }}
+> **Étudiant(e) :** Sacha Ostiguy-Corminboeuf
+> **Période :** 2026-02-20→ 2026-02-27
 >
 > Séance 1 — _2026-02-20_ (Durée : _2h50m_)
 >
