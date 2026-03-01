@@ -18,3 +18,7 @@
 > ## 6) Architecture et organisation du code
 >
 > ## 7) Utilisation de l’IA (OBLIGATOIRE)
+AddItem.vue ligne 5 et 14.
+MainScreen.vue ligne 23
+DeleteConfirmation ligne 17-32
+ShowDetails.vue ligne 19-44
