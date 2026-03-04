@@ -43,3 +43,9 @@ J'ai travaillé sur l'esthétique de l'application pour qu'elle soit vraiment da
 Finalement, j'ai fais et fini la fonctionnalité pour monter les détails d'un item encore une fois avec un modal.
 J'ai eu un peu de difficulté avec la fonctionnalité dù au Parent-enfant-sous enfant. 
 À la fin du cours, j'ai fais la séance 2 et 3 de mon journal puisque j'avais oublié de faire la séance 2 le dernier cours.
+
+Séance 4 - _2026_03_03_ (Durée: 1:50)
+
+**Objectif de la séance :**
+
+**Travail réalisé**
