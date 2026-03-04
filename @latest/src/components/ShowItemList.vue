@@ -8,6 +8,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "delete", id: number): void;
   (e: "details", id: number): void;
+  (e: "edit", id: number): void;
+  (e: "duplicate", id: number): void;
 }>();
 
 </script>
@@ -66,8 +68,8 @@ const emit = defineEmits<{
                   </button>
                 </div>
                 <div class="col">
-                  <button class="poe-btn poe-edit">Edit</button>
-                  <button class="poe-btn poe-duplicate">Duplicate</button>
+                  <button class="poe-btn poe-edit" @click="emit('edit', item.id)">Edit</button>
+                  <button class="poe-btn poe-duplicate" @click="emit('duplicate', item.id)">Duplicate</button>
                 </div>
               </div>
             </td>

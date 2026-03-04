@@ -1,24 +1,27 @@
 <script setup lang="ts">
-
 interface Props {
-  id: number
+  id: number;
+  name: string;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: 'confirm-delete'): void
-  (e: 'cancel'): void
-  (e: 'update:modelValue', value: boolean): void
-}>()
-
+  (e: "confirm-delete"): void;
+  (e: "cancel"): void;
+  (e: "update:modelValue", value: boolean): void;
+}>();
 </script>
 <!-- L'IA a généré le modal pour moi, la logic du emit a été faite par moi -->
 <template>
   <div class="poe-modal-overlay" @click.self="$emit('cancel')">
     <div class="poe-modal-content">
       <h2>Confirm Deletion</h2>
-      <p>Are you sure you want to delete item ID {{ props.id }}</p>
+      <p>
+        Are you sure you want to delete item ID {{ props.id }} ({{
+          props.name
+        }})?
+      </p>
       <div class="poe-modal-actions">
         <button class="poe-btn poe-confirm" @click="$emit('confirm-delete')">
           Yes, Delete
@@ -109,8 +112,12 @@ const emit = defineEmits<{
 }
 
 @keyframes poe-fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes poe-slideUp {

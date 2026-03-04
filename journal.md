@@ -44,8 +44,17 @@ Finalement, j'ai fais et fini la fonctionnalité pour monter les détails d'un i
 J'ai eu un peu de difficulté avec la fonctionnalité dù au Parent-enfant-sous enfant. 
 À la fin du cours, j'ai fais la séance 2 et 3 de mon journal puisque j'avais oublié de faire la séance 2 le dernier cours.
 
+
 Séance 4 - _2026_03_03_ (Durée: 1:50)
 
 **Objectif de la séance :**
+Commencé l'ajout de la fonctionnalité de modification et de dupplication d'un item.
 
 **Travail réalisé**
+
+J'ai fais tous le côté affichage du components EditItem avec les props et emit.
+Il reste juste à finir la fonction pour l'instant elle ne fonctionne pas.
+Ensuite, j'ai aussi fais tous le côté affichage de la dupplication d'item dans le components duplicateItems. La fonction n'a pas encore été faite.
+J'ai rajouté le nom de l'item dans la confirmation de suppresion (avant seulement le id).
+J'ai ajouté les fonctions pour les modals pour dupplicate et edit dans MainScreen.
+Finalement j'ai fais les fonctions pour la modification et la dupplication dans MainScreen.vue.
