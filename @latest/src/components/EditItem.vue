@@ -84,7 +84,11 @@ function submitForm(): void {
           </div>
 
           <div class="poe-actions">
-            <button type="button" class="poe-btn poe-cancel" @click="emit('close')">
+            <button
+              type="button"
+              class="poe-btn poe-cancel"
+              @click="emit('close')"
+            >
               Annuler
             </button>
             <button type="submit" class="poe-btn poe-confirm">
@@ -111,6 +115,24 @@ function submitForm(): void {
   justify-content: center;
   z-index: 1000;
   animation: poe-fadeIn 0.3s ease-out;
+}
+
+.poe-box.bg-danger {
+  background: var(--bs-danger) !important;
+  border-color: var(--bs-danger) !important;
+  color: red !important;
+}
+
+.poe-box.bg-warning {
+  background: var(--bs-warning) !important;
+  border-color: var(--bs-warning) !important;
+  color: yellow !important;
+}
+
+.poe-box.bg-success {
+  background: var(--bs-success) !important;
+  border-color: var(--bs-success) !important;
+  color: green !important;
 }
 
 .poe-modal-content {
@@ -177,12 +199,16 @@ function submitForm(): void {
 }
 
 .poe-confirm {
-  background: linear-gradient(145deg, #00cc66, #00994d);
+  background: linear-gradient(145deg, #0066cc, #004499);
   color: white;
 }
 
 @keyframes poe-fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>

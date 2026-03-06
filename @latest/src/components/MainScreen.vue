@@ -8,7 +8,7 @@ import type { Item } from "../scripts/item";
 import itemsData from "../scripts/item";
 import ShowDetails from "./ShowDetails.vue";
 import EditItem from "./EditItem.vue";
-import confirmDuplicate from "./confirmDuplicate.vue";
+import ConfirmDuplicate from "./confirmDuplicate.vue";
 
 const items = ref<Item[]>([...itemsData]);
 let nextId = items.value.length + 1;
@@ -59,22 +59,15 @@ function saveEditedItem(editedItemData: Omit<Item, "id">): void {
   closeEditItem();
 }
 
-function confirmDuplication(): void {
-  if (selectedDuplicateItemId.value !== null) {
-    const existingItem = items.value.find(
-      (item) => item.id === selectedDuplicateItemId.value,
-    );
-    if (existingItem) {
-      const newItem: Item = {
-        ...existingItem,
-        id: nextId++,
-      };
-      items.value.push(newItem);
-    }
-  }
+function duplicateWithChanges(newItemData: Omit<Item, "id">): void {
+  const newItem: Item = {
+    id: nextId++,
+    ...newItemData,
+  };
+
+  items.value.push(newItem);
   closeDuplicateItem();
 }
-
 
 function openDeleteConfirm(id: number): void {
   pendingDeleteId.value = id;
@@ -165,15 +158,24 @@ function closeDuplicateItem(): void {
       @save="saveEditedItem"
       @close="closeEditItem"
     />
-
-    <confirmDuplicate
+    <ConfirmDuplicate
       v-if="isDuplicateModalOpen && selectedDuplicateItemId"
-      :id="selectedDuplicateItemId!"
+      :id="selectedDuplicateItemId"
       :name="
         items.find((item) => item.id === selectedDuplicateItemId)?.name ?? ''
       "
-      @confirm="confirmDuplication"
-      @cancel="closeDuplicateItem"
+      :stock="
+        items.find((item) => item.id === selectedDuplicateItemId)?.stock ?? 0
+      "
+      :price="
+        items.find((item) => item.id === selectedDuplicateItemId)?.price ?? 0
+      "
+      :description="
+        items.find((item) => item.id === selectedDuplicateItemId)
+          ?.description ?? ''
+      "
+      @save="duplicateWithChanges"
+      @close="closeDuplicateItem"
     />
   </div>
 </template>

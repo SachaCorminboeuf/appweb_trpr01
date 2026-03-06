@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 interface Props {
   id: number;
   name: string;
@@ -31,7 +30,17 @@ const emit = defineEmits<{
         </div>
         <div class="poe-detail-box">
           <label>Stock</label>
-          <div class="poe-box">{{ props.stock }}</div>
+          <div v-if="props.stock < 4" class="poe-box bg-danger">
+            {{ props.stock }}
+          </div>
+
+          <div v-else-if="props.stock <= 10" class="poe-box bg-warning">
+            {{ props.stock }}
+          </div>
+
+          <div v-else class="poe-box bg-success">
+            {{ props.stock }}
+          </div>
         </div>
         <div class="poe-detail-box">
           <label>Prix</label>
@@ -91,6 +100,25 @@ const emit = defineEmits<{
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
+}
+
+.poe-box.bg-danger {
+  background: var(--bs-danger) !important;
+  border-color: var(--bs-danger) !important;
+  color: red !important;
+}
+
+
+.poe-box.bg-warning {
+  background: var(--bs-warning) !important;
+  border-color: var(--bs-warning) !important;
+  color : yellow !important;
+}
+
+.poe-box.bg-success {
+  background: var(--bs-success) !important;
+  border-color: var(--bs-success) !important;
+  color : green !important;
 }
 
 .poe-item-details p strong {

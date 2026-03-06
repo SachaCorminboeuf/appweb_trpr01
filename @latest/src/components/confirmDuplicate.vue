@@ -1,32 +1,101 @@
 <script setup lang="ts">
+import { reactive } from "vue";
+import type { Item } from "../scripts/item";
+
 interface Props {
   id: number;
   name: string;
+  stock: number;
+  price: number;
+  description: string;
 }
 
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: "confirm"): void;
-  (e: "cancel"): void;
+  (e: "close"): void;
+  (e: "save", itemData: Omit<Item, "id">): void;
 }>();
+
+const formData = reactive<Omit<Item, "id">>({
+  name: props.name,
+  stock: props.stock,
+  price: props.price,
+  description: props.description,
+});
+
+function submitForm(): void {
+  if (!formData.name.trim() || !formData.description.trim()) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  emit("save", { ...formData });
+  emit("close");
+}
 </script>
 
 <template>
   <Teleport to="body">
-    <div class="poe-modal-overlay" @click.self="emit('cancel')">
+    <div class="poe-modal-overlay" @click.self="emit('close')">
       <div class="poe-modal-content">
-        <h1 class="poe-confirm-title">Confirmer la duplication</h1>
-        <p class="poe-confirm-message">Dupliquer l'item "{{ props.name }}" ?</p>
+        <h1 class="poe-confirm-title">Dupliquer l'item</h1>
 
-        <div class="poe-confirm-actions">
-          <button class="poe-btn poe-cancel" @click="emit('cancel')">
-            Annuler
-          </button>
-          <button class="poe-btn poe-confirm" @click="emit('confirm')">
-            Dupliquer
-          </button>
-        </div>
+        <form @submit.prevent="submitForm" class="poe-form">
+          <div class="poe-form-group">
+            <label for="name" class="poe-label">Nom</label>
+            <input
+              id="name"
+              type="text"
+              v-model="formData.name"
+              class="poe-input"
+            />
+          </div>
+
+          <div class="poe-form-group">
+            <label for="price" class="poe-label">Prix</label>
+            <input
+              id="price"
+              type="number"
+              step="0.01"
+              v-model.number="formData.price"
+              class="poe-input"
+            />
+          </div>
+
+          <div class="poe-form-group">
+            <label for="stock" class="poe-label">Stock</label>
+            <input
+              id="stock"
+              type="number"
+              v-model.number="formData.stock"
+              class="poe-input"
+            />
+          </div>
+
+          <div class="poe-form-group">
+            <label for="description" class="poe-label">Description</label>
+            <textarea
+              id="description"
+              v-model="formData.description"
+              class="poe-textarea"
+              rows="4"
+            ></textarea>
+          </div>
+
+          <div class="poe-confirm-actions">
+            <button
+              type="button"
+              class="poe-btn poe-cancel"
+              @click="emit('close')"
+            >
+              Annuler
+            </button>
+            <button type="submit" class="poe-btn poe-confirm">
+              Dupliquer
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </Teleport>
@@ -51,8 +120,7 @@ const emit = defineEmits<{
   border: 1px solid #444;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
   padding: 32px;
-  text-align: center;
-  max-width: 400px;
+  max-width: 520px;
   width: 90%;
   color: #f0f0f0;
 }
@@ -61,21 +129,51 @@ const emit = defineEmits<{
   color: #ffd700;
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  text-align: center;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
 }
 
-.poe-confirm-message {
+.poe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.poe-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.poe-label {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.poe-input,
+.poe-textarea {
+  background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 12px 14px;
   color: #f0f0f0;
-  font-size: 16px;
-  margin-bottom: 32px;
-  line-height: 1.4;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.poe-textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
 .poe-confirm-actions {
   display: flex;
   gap: 16px;
   justify-content: center;
+  margin-top: 8px;
 }
 
 .poe-btn {

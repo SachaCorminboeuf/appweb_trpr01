@@ -9,29 +9,33 @@ const props = defineProps<Props>();
 const emit = defineEmits<{
   (e: "confirm-delete"): void;
   (e: "cancel"): void;
+  (e: "close"): void;
   (e: "update:modelValue", value: boolean): void;
 }>();
 </script>
 <!-- L'IA a généré le modal pour moi, la logic du emit a été faite par moi -->
 <template>
-  <div class="poe-modal-overlay" @click.self="$emit('cancel')">
-    <div class="poe-modal-content">
-      <h2>Confirm Deletion</h2>
-      <p>
-        Are you sure you want to delete item ID {{ props.id }} ({{
-          props.name
-        }})?
-      </p>
-      <div class="poe-modal-actions">
-        <button class="poe-btn poe-confirm" @click="$emit('confirm-delete')">
-          Yes, Delete
-        </button>
-        <button class="poe-btn poe-cancel" @click="$emit('cancel')">
-          No, Cancel
-        </button>
+  <Teleport to="body">
+    <div class="poe-modal-overlay" @click.self="$emit('cancel')">
+      <div class="poe-modal-content">
+        <h2>Confirmer la suppression</h2>
+        <p>
+          Être vous sur de vouloir supprimer l'item ID {{ props.id }} ({{
+            props.name
+          }})?
+        </p>
+        <div class="poe-modal-actions">
+          <button class="poe-btn poe-cancel" @click="$emit('cancel')">
+            Non, Annuler
+          </button>
+
+          <button class="poe-btn poe-confirm" @click="$emit('confirm-delete')">
+            Oui, supprimer
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </Teleport>
 </template>
 
 <style scoped>

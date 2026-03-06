@@ -40,10 +40,22 @@ const emit = defineEmits<{
               </div>
             </td>
             <td>
-              <div class="poe-box">
+              <div v-if="item.stock < 4" class="poe-box bg-danger">
+                {{ item.stock }}
+              </div>
+
+              <div
+                v-else-if="item.stock <= 10"
+                class="poe-box bg-warning"
+              >
+                {{ item.stock }}
+              </div>
+
+              <div v-else class="poe-box bg-success">
                 {{ item.stock }}
               </div>
             </td>
+
             <td>
               <div class="poe-box">
                 {{ item.price }}
@@ -130,7 +142,6 @@ const emit = defineEmits<{
 }
 
 .poe-box {
-  background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
   border: 1px solid #555;
   border-radius: 6px;
   padding: 12px;
@@ -141,6 +152,26 @@ const emit = defineEmits<{
     inset 0 1px 3px rgba(0, 0, 0, 0.5),
     0 2px 4px rgba(0, 0, 0, 0.3);
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+  background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+}
+
+.poe-box.bg-danger {
+  background: var(--bs-danger) !important;
+  border-color: var(--bs-danger) !important;
+  color: red !important;
+}
+
+
+.poe-box.bg-warning {
+  background: var(--bs-warning) !important;
+  border-color: var(--bs-warning) !important;
+  color : yellow !important;
+}
+
+.poe-box.bg-success {
+  background: var(--bs-success) !important;
+  border-color: var(--bs-success) !important;
+  color : green !important;
 }
 
 .poe-desc {
