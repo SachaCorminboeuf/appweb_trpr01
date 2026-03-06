@@ -32,24 +32,24 @@ function submitForm(): void {
 <template>
   <div class="poe-form-container">
     <h1 class="poe-title">
-      <p>Add a new item</p>
+      <p>Ajouter un item</p>
     </h1>
     
     <form @submit.prevent="submitForm" class="poe-form">
       <div class="poe-form-group">
-        <label for="name" class="poe-label">Name</label>
+        <label for="name" class="poe-label">Nom</label>
         <input 
           type="text" 
           id="name" 
           name="name" 
           v-model="formData.name"
           class="poe-input"
-          placeholder="Enter item name"
+          placeholder="Entrer le nom de l'item"
         />
       </div>
 
       <div class="poe-form-group">
-        <label for="price" class="poe-label">Price</label>
+        <label for="price" class="poe-label">Prix</label>
         <input 
           type="number" 
           step="0.01" 
@@ -80,13 +80,13 @@ function submitForm(): void {
           name="description"
           v-model="formData.description"
           class="poe-textarea"
-          placeholder="Enter item description"
+          placeholder="Entrer la description de l'item"
           rows="4"
         ></textarea>
       </div>
       
       <button type="submit" class="poe-submit-btn">
-        <span>Add Item</span>
+        <span>Ajouter l'item</span>
       </button>
     </form>
   </div>

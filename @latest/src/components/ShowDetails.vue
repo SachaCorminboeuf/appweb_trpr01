@@ -19,14 +19,14 @@ const emit = defineEmits<{
 <template>
   <div class="poe-modal-overlay" @click.self="$emit('close')">
     <div class="poe-item-details">
-      <h2>Item Details</h2>
+      <h2>Détails de l'item</h2>
       <div class="poe-details-grid">
         <div class="poe-detail-box">
           <label>ID</label>
           <div class="poe-box">{{ props.id }}</div>
         </div>
         <div class="poe-detail-box">
-          <label>Name</label>
+          <label>Nom</label>
           <div class="poe-box">{{ props.name }}</div>
         </div>
         <div class="poe-detail-box">
@@ -34,7 +34,7 @@ const emit = defineEmits<{
           <div class="poe-box">{{ props.stock }}</div>
         </div>
         <div class="poe-detail-box">
-          <label>Price</label>
+          <label>Prix</label>
           <div class="poe-box">{{ props.price }}</div>
         </div>
         <div class="poe-detail-box poe-full">

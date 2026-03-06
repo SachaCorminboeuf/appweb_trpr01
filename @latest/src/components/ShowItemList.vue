@@ -11,7 +11,6 @@ const emit = defineEmits<{
   (e: "edit", id: number): void;
   (e: "duplicate", id: number): void;
 }>();
-
 </script>
 
 <template>
@@ -21,9 +20,9 @@ const emit = defineEmits<{
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Nom</th>
             <th>Stock</th>
-            <th>Price</th>
+            <th>Prix</th>
             <th>Description</th>
             <th>Actions</th>
           </tr>
@@ -58,18 +57,32 @@ const emit = defineEmits<{
             <td>
               <div class="poe-actions">
                 <div class="col">
-                  <button class="poe-btn poe-details"
-                  @click="emit('details', item.id)">Show details</button>
+                  <button
+                    class="poe-btn poe-details"
+                    @click="emit('details', item.id)"
+                  >
+                    Voir les détails
+                  </button>
                   <button
                     class="poe-btn poe-delete"
                     @click="emit('delete', item.id)"
                   >
-                    Delete
+                    Supprimer
                   </button>
                 </div>
                 <div class="col">
-                  <button class="poe-btn poe-edit" @click="emit('edit', item.id)">Edit</button>
-                  <button class="poe-btn poe-duplicate" @click="emit('duplicate', item.id)">Duplicate</button>
+                  <button
+                    class="poe-btn poe-edit"
+                    @click="emit('edit', item.id)"
+                  >
+                    Modifier
+                  </button>
+                  <button
+                    class="poe-btn poe-duplicate"
+                    @click="emit('duplicate', item.id)"
+                  >
+                    Dupliquer
+                  </button>
                 </div>
               </div>
             </td>

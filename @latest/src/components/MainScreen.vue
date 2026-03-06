@@ -8,7 +8,7 @@ import type { Item } from "../scripts/item";
 import itemsData from "../scripts/item";
 import ShowDetails from "./ShowDetails.vue";
 import EditItem from "./EditItem.vue";
-import DuplicateItem from "./DuplicateItem.vue";
+import confirmDuplicate from "./confirmDuplicate.vue";
 
 const items = ref<Item[]>([...itemsData]);
 let nextId = items.value.length + 1;
@@ -54,18 +54,27 @@ function handleEdit(editedItemData: Omit<Item, "id">): void {
   }
 }
 
-function handleDuplication(duplicatedItemData: Omit<Item, "id">): void {
-  const existingItem = items.value.find(
-    (item) => item.id === selectedDuplicateItemId.value,
-  );
-  if (existingItem) {
-    const newItem: Item = {
-      id: nextId++,
-      ...duplicatedItemData,
-    };
-    items.value.push(newItem);
-  }
+function saveEditedItem(editedItemData: Omit<Item, "id">): void {
+  handleEdit(editedItemData);
+  closeEditItem();
 }
+
+function confirmDuplication(): void {
+  if (selectedDuplicateItemId.value !== null) {
+    const existingItem = items.value.find(
+      (item) => item.id === selectedDuplicateItemId.value,
+    );
+    if (existingItem) {
+      const newItem: Item = {
+        ...existingItem,
+        id: nextId++,
+      };
+      items.value.push(newItem);
+    }
+  }
+  closeDuplicateItem();
+}
+
 
 function openDeleteConfirm(id: number): void {
   pendingDeleteId.value = id;
@@ -153,25 +162,18 @@ function closeDuplicateItem(): void {
       :description="
         items.find((item) => item.id === selectedEditItemId)?.description ?? ''
       "
+      @save="saveEditedItem"
       @close="closeEditItem"
     />
-    <DuplicateItem
+
+    <confirmDuplicate
       v-if="isDuplicateModalOpen && selectedDuplicateItemId"
-      :id="selectedDuplicateItemId"
+      :id="selectedDuplicateItemId!"
       :name="
         items.find((item) => item.id === selectedDuplicateItemId)?.name ?? ''
       "
-      :stock="
-        items.find((item) => item.id === selectedDuplicateItemId)?.stock ?? 0
-      "
-      :price="
-        items.find((item) => item.id === selectedDuplicateItemId)?.price ?? 0
-      "
-      :description="
-        items.find((item) => item.id === selectedDuplicateItemId)
-          ?.description ?? ''
-      "
-      @close="closeDuplicateItem"
+      @confirm="confirmDuplication"
+      @cancel="closeDuplicateItem"
     />
   </div>
 </template>
