@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import Research from "./Research.vue";
-import CSVDownload from "./CSVDownload.vue";
 </script>
 
 <template>
@@ -11,7 +9,6 @@ import CSVDownload from "./CSVDownload.vue";
       class="poe-logo"
     />
     <p class="poe-title">Path Of Exile Vente d'items</p>
-    <Research />
   </header>
 </template>
 

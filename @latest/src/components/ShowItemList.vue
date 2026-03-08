@@ -11,7 +11,6 @@ const emit = defineEmits<{
   (e: "edit", id: number): void;
   (e: "duplicate", id: number): void;
 }>();
-
 </script>
 
 <template>
@@ -28,6 +27,7 @@ const emit = defineEmits<{
             <th>Actions</th>
           </tr>
         </thead>
+
         <tbody>
           <tr v-for="item in props.items" :key="item.id">
             <td>
@@ -35,13 +35,14 @@ const emit = defineEmits<{
                 {{ item.id }}
               </div>
             </td>
+
             <td>
               <div class="poe-box">
                 {{ item.name }}
               </div>
             </td>
-            <td>
 
+            <td>
               <div v-if="item.stock < 4" class="poe-box bg-danger">
                 {{ item.stock }}
               </div>
@@ -60,11 +61,13 @@ const emit = defineEmits<{
                 {{ item.price }}
               </div>
             </td>
+
             <td>
               <div class="poe-box poe-desc">
                 {{ item.description }}
               </div>
             </td>
+
             <td>
               <div class="poe-actions">
                 <div class="col">
@@ -74,6 +77,7 @@ const emit = defineEmits<{
                   >
                     Voir les détails
                   </button>
+
                   <button
                     class="poe-btn poe-delete"
                     @click="emit('delete', item.id)"
@@ -81,6 +85,7 @@ const emit = defineEmits<{
                     Supprimer
                   </button>
                 </div>
+
                 <div class="col">
                   <button
                     class="poe-btn poe-edit"
@@ -88,6 +93,7 @@ const emit = defineEmits<{
                   >
                     Modifier
                   </button>
+
                   <button
                     class="poe-btn poe-duplicate"
                     @click="emit('duplicate', item.id)"
@@ -122,7 +128,7 @@ const emit = defineEmits<{
   width: 100%;
   border-collapse: collapse;
   color: #f0f0f0;
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 14px;
 }
 
@@ -184,12 +190,20 @@ const emit = defineEmits<{
 
 .poe-actions {
   display: flex;
-  gap: 6px;
+  gap: 10px;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .poe-btn {
+  width: 140px;
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
@@ -216,13 +230,14 @@ const emit = defineEmits<{
   color: white;
 }
 
-.poe-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-}
 .poe-details {
   background: linear-gradient(145deg, #00cc66, #00994d);
   color: white;
+}
+
+.poe-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 768px) {
@@ -230,6 +245,15 @@ const emit = defineEmits<{
   .poe-table td {
     padding: 6px 4px;
     font-size: 12px;
+  }
+
+  .poe-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .poe-btn {
+    width: 160px;
   }
 }
 </style>

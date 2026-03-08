@@ -55,7 +55,7 @@ function exportToCsv(): void {
 }
 
 .poe-export {
-  background: linear-gradient(145deg, #6f42c1, #563d7c);
+  background: linear-gradient(145deg, #ff007b, #563d7c);
   color: white;
   padding: 10px 18px;
   border: none;
