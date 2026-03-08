@@ -50,6 +50,21 @@ const selectedEditItemId = ref<number | null>(null);
 const isDuplicateModalOpen = ref(false);
 const selectedDuplicateItemId = ref<number | null>(null);
 
+const isAddModalOpen = ref(false);
+
+function openAddItem(): void {
+  isAddModalOpen.value = true;
+}
+
+function closeAddItem(): void {
+  isAddModalOpen.value = false;
+}
+
+function saveNewItem(newItemData: Omit<Item, "id">): void {
+  handleAdd(newItemData);
+  closeAddItem();
+}
+
 function handleAdd(newItemData: Omit<Item, "id">): void {
   const newItem: Item = {
     id: nextId++,
@@ -169,15 +184,29 @@ function closeLowStockAlert(): void {
       :name="items.find((item) => item.id === selectedItemId)?.name ?? ''"
       :stock="items.find((item) => item.id === selectedItemId)?.stock ?? 0"
       :price="items.find((item) => item.id === selectedItemId)?.price ?? 0"
-      :description="items.find((item) => item.id === selectedItemId)?.description ?? ''"
+      :description="
+        items.find((item) => item.id === selectedItemId)?.description ?? ''
+      "
       @close="closeDetails"
     />
 
-    <AddItemForm @add="handleAdd" />
+    <div class="top-actions">
+      <SearchBar v-model="searchTerm" />
 
-    <SearchBar v-model="searchTerm" />
+      <div class="action-buttons">
+        <button class="add-item-btn" @click="openAddItem">
+          Ajouter un item
+        </button>
 
-    <CSVDownload :items="items" />
+        <CSVDownload :items="items" />
+      </div>
+
+      <AddItemForm
+        v-if="isAddModalOpen"
+        @add="saveNewItem"
+        @close="closeAddItem"
+      />
+    </div>
 
     <ShowItemList
       :items="filteredItems"
@@ -201,7 +230,9 @@ function closeLowStockAlert(): void {
       :name="items.find((item) => item.id === selectedEditItemId)?.name ?? ''"
       :stock="items.find((item) => item.id === selectedEditItemId)?.stock ?? 0"
       :price="items.find((item) => item.id === selectedEditItemId)?.price ?? 0"
-      :description="items.find((item) => item.id === selectedEditItemId)?.description ?? ''"
+      :description="
+        items.find((item) => item.id === selectedEditItemId)?.description ?? ''
+      "
       @save="saveEditedItem"
       @close="closeEditItem"
     />
@@ -209,10 +240,19 @@ function closeLowStockAlert(): void {
     <ConfirmDuplicate
       v-if="isDuplicateModalOpen && selectedDuplicateItemId"
       :id="selectedDuplicateItemId"
-      :name="items.find((item) => item.id === selectedDuplicateItemId)?.name ?? ''"
-      :stock="items.find((item) => item.id === selectedDuplicateItemId)?.stock ?? 0"
-      :price="items.find((item) => item.id === selectedDuplicateItemId)?.price ?? 0"
-      :description="items.find((item) => item.id === selectedDuplicateItemId)?.description ?? ''"
+      :name="
+        items.find((item) => item.id === selectedDuplicateItemId)?.name ?? ''
+      "
+      :stock="
+        items.find((item) => item.id === selectedDuplicateItemId)?.stock ?? 0
+      "
+      :price="
+        items.find((item) => item.id === selectedDuplicateItemId)?.price ?? 0
+      "
+      :description="
+        items.find((item) => item.id === selectedDuplicateItemId)
+          ?.description ?? ''
+      "
       @save="duplicateWithChanges"
       @close="closeDuplicateItem"
     />
@@ -227,6 +267,131 @@ function closeLowStockAlert(): void {
 </template>
 
 <style scoped>
+.main-screen {
+  margin-bottom: 2rem;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 1rem 0;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+}
+
+.add-item-btn {
+  flex: 1;
+  background: linear-gradient(145deg, #00cc66, #00994d);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 204, 102, 0.4);
+  transition: all 0.3s ease;
+}
+
+.add-item-btn:hover {
+  transform: translateY(-2px);
+}
+
+.top-actions :deep(.search-container) {
+  flex: 2;
+  margin: 0;
+  justify-content: flex-start;
+}
+
+.top-actions :deep(.search-input) {
+  width: 100%;
+  max-width: none;
+}
+
+.action-buttons :deep(.export-container) {
+  flex: 1;
+  margin: 0;
+  display: flex;
+}
+
+.action-buttons :deep(.poe-export) {
+  flex: 1;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .top-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-buttons {
+    width: 100%;
+  }
+}
+
+.top-bar {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.add-item-btn {
+  background: linear-gradient(145deg, #00cc66, #00994d);
+  border: none;
+  border-radius: 8px;
+  padding: 14px 24px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 204, 102, 0.4);
+  transition: all 0.3s ease;
+}
+
+.add-item-btn:hover {
+  transform: translateY(-2px);
+}
+
+.main-screen {
+  margin-bottom: 2rem;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 1rem 0;
+}
+
+.top-actions :deep(.search-container) {
+  flex: 1;
+  margin: 0;
+  justify-content: flex-start;
+}
+
+.top-actions :deep(.search-input) {
+  max-width: none;
+  width: 100%;
+}
+
+.top-actions :deep(.export-container) {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .top-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
 .main-screen {
   margin-bottom: 2rem;
 }
