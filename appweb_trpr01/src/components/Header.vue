@@ -15,20 +15,20 @@
 <style scoped>
 .poe-header {
   display: flex;
-  align-items: center; /* Vertically center logo + text */
-  gap: 16px; /* Space between logo and text */
+  align-items: center; 
+  gap: 16px; 
   padding: 16px 24px;
   background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
   border-bottom: 2px solid #444;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-  height: 80px; /* Fixed height for consistency */
+  height: 80px;
   overflow: hidden;
 }
 
 .poe-logo {
-  height: 60px; /* Fixed height to match text container */
-  width: auto; /* Maintain aspect ratio */
-  flex-shrink: 0; /* Prevent logo from shrinking */
+  height: 60px; 
+  width: auto; 
+  flex-shrink: 0; 
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }

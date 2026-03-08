@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import type { Item } from "../scripts/item";
 
 interface Props {
@@ -24,9 +24,21 @@ const formData = reactive<Omit<Item, "id">>({
   description: props.description,
 });
 
+const submitted = ref(false);
+
+function isFormValid(): boolean {
+  return (
+    !!formData.name.trim() &&
+    formData.price > 0 &&
+    formData.stock >= 0 &&
+    !!formData.description.trim()
+  );
+}
+
 function submitForm(): void {
-  if (!formData.name.trim() || !formData.description.trim()) {
-    alert("Please fill all fields");
+  submitted.value = true;
+
+  if (!isFormValid()) {
     return;
   }
 
@@ -41,15 +53,22 @@ function submitForm(): void {
       <div class="poe-modal-content">
         <h1 class="poe-confirm-title">Dupliquer l'item</h1>
 
-        <form @submit.prevent="submitForm" class="poe-form">
+        <form @submit.prevent="submitForm" class="poe-form" novalidate>
           <div class="poe-form-group">
             <label for="name" class="poe-label">Nom</label>
             <input
               id="name"
               type="text"
               v-model="formData.name"
-              class="poe-input"
+              class="poe-input form-control"
+              :class="{ 'is-invalid': submitted && !formData.name.trim() }"
             />
+            <div
+              v-if="submitted && !formData.name.trim()"
+              class="invalid-feedback"
+            >
+              Le nom est obligatoire.
+            </div>
           </div>
 
           <div class="poe-form-group">
@@ -59,8 +78,15 @@ function submitForm(): void {
               type="number"
               step="0.01"
               v-model.number="formData.price"
-              class="poe-input"
+              class="poe-input form-control"
+              :class="{ 'is-invalid': submitted && formData.price <= 0 }"
             />
+            <div
+              v-if="submitted && formData.price <= 0"
+              class="invalid-feedback"
+            >
+              Le prix doit être supérieur à 0.
+            </div>
           </div>
 
           <div class="poe-form-group">
@@ -69,8 +95,15 @@ function submitForm(): void {
               id="stock"
               type="number"
               v-model.number="formData.stock"
-              class="poe-input"
+              class="poe-input form-control"
+              :class="{ 'is-invalid': submitted && formData.stock < 0 }"
             />
+            <div
+              v-if="submitted && formData.stock < 0"
+              class="invalid-feedback"
+            >
+              Le stock ne peut pas être négatif.
+            </div>
           </div>
 
           <div class="poe-form-group">
@@ -78,9 +111,18 @@ function submitForm(): void {
             <textarea
               id="description"
               v-model="formData.description"
-              class="poe-textarea"
+              class="poe-textarea form-control"
+              :class="{
+                'is-invalid': submitted && !formData.description.trim(),
+              }"
               rows="4"
             ></textarea>
+            <div
+              v-if="submitted && !formData.description.trim()"
+              class="invalid-feedback"
+            >
+              La description est obligatoire.
+            </div>
           </div>
 
           <div class="poe-confirm-actions">
@@ -91,9 +133,7 @@ function submitForm(): void {
             >
               Annuler
             </button>
-            <button type="submit" class="poe-btn poe-confirm">
-              Dupliquer
-            </button>
+            <button type="submit" class="poe-btn poe-confirm">Dupliquer</button>
           </div>
         </form>
       </div>
@@ -201,6 +241,16 @@ function submitForm(): void {
 .poe-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin-top: 4px;
 }
 
 @keyframes poe-fadeIn {

@@ -7,14 +7,13 @@
 >
 > **Objectif de la séance :**
 > Bien commencer le travail pratique 1 avec une bonne structure de base ainsi que la création du projet sur visual Studio Code
-> 
->**Travail réalisé**
+>
+> **Travail réalisé**
 > J'ai initialiser le travail pratique 1. Pour commencer, j'ai regardé la vidéo de présentation du travail pratique, puis j'ai fais l'initialisation d'un nouveau projet sur Visual Studio Code. J'ai ensuite créé un nouveau repository sur Git Hub.
 > J'ai ajouté masterjim@gmail.com comme collaborateur. J'ai ensuite créé le fichier README.md, j'ai aussi mis les balises en haur du document pour l'identification et ensuite
 > j'ai mis les balises correspondantes pour bien débuter le projet. J'ai aussi fais la partie 1 du README : la description du projet.
 > Puis, la création de backlog.md avec les balises en haut du document pour bien identifier. J'ai ajouté le tableau des tâches dans le fichier.
 > Finalement j'ai créé le fichier journal.md et fais la séance 1 ainsi que les balises en haut pour l'identification du fichier.
-
 
 Séance 2 - _2026-02-24_ (Durée : _1:50_)
 
@@ -41,9 +40,8 @@ Puis, j'ai déplacé la fonctionnalité dans son propre component.
 Ensuite, j'ai commencé la fonctionnalité pour la suppresion d'item avec l'utilisation d'un modal.
 J'ai travaillé sur l'esthétique de l'application pour qu'elle soit vraiment dans le thème de POE2.
 Finalement, j'ai fais et fini la fonctionnalité pour monter les détails d'un item encore une fois avec un modal.
-J'ai eu un peu de difficulté avec la fonctionnalité dù au Parent-enfant-sous enfant. 
+J'ai eu un peu de difficulté avec la fonctionnalité dù au Parent-enfant-sous enfant.
 À la fin du cours, j'ai fais la séance 2 et 3 de mon journal puisque j'avais oublié de faire la séance 2 le dernier cours.
-
 
 Séance 4 - _2026_03_03_ (Durée: 1:50)
 
@@ -58,3 +56,18 @@ Ensuite, j'ai aussi fais tous le côté affichage de la dupplication d'item dans
 J'ai rajouté le nom de l'item dans la confirmation de suppresion (avant seulement le id).
 J'ai ajouté les fonctions pour les modals pour dupplicate et edit dans MainScreen.
 Finalement j'ai fais les fonctions pour la modification et la dupplication dans MainScreen.vue.
+
+Séance 5 _2026_03_06_ (Durée: 2:50)
+
+**Objectif de la séance :**
+Ajouté la fonctionnalité pour le stock qui est bas, ajouté le téléchargement CSV, la barre de recherche et finir la dupplication et la modification.
+
+**Travail réalisé**
+J'ai commencé par finaliser la fonctionnalité de dupplication et de moddification d'items.
+Ensuite, j'ai ajouté un formulaire à la dupplication et non seulement juste un ajout identique avec un nouvel id.
+J'ai travaillé sur l'affichage des bouttons pour que tous les bouttons soient droit.
+J'ai ajouté dans la liste et dans le plus de détails la couleur de la boîte et du texte du stock dépendament de la quantité qu'il reste.
+J'ai ajouté une alerte quand le stock d'un item descent en bas de 4.
+J'ai ensuite ajouté la possibilité de faire le téléchargement de la liste d'item en CSV.
+J'ai ajouté la possibilité de faire une recherche en temps réel.
+Finalement, j'ai fais le déployment de l'application sur github pages.

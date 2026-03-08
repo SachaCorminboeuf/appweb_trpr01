@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from "vue"
+import { reactive, ref } from "vue"
 import type { Item } from "../scripts/item"
 
 const formData = reactive<Omit<Item, 'id'>>({
@@ -8,24 +8,41 @@ const formData = reactive<Omit<Item, 'id'>>({
   stock: 0,
   description: ""
 })
-//J'ai utilisé l'ia pour trouver la fonction Omit qui permet de créer un objet sans la propriété id, 
+
+// J'ai utilisé l'ia pour trouver la fonction Omit qui permet de créer un objet sans la propriété id, 
 // ce qui est parfait pour notre formulaire d'ajout d'item, car l'id est généré automatiquement dans MainScreen.vue.
 const emit = defineEmits<{
   (e: 'add', itemData: Omit<Item, 'id'>): void
 }>()
 
+const submitted = ref(false)
+
+function isFormValid(): boolean {
+  return (
+    !!formData.name.trim() &&
+    formData.price > 0 &&
+    formData.stock >= 0 &&
+    !!formData.description.trim()
+  )
+}
+
 function submitForm(): void {
-  if (!formData.name.trim() || !formData.price || !formData.stock || !formData.description.trim()) {
-    alert("Please fill all fields")
+  submitted.value = true
+
+  if (!isFormValid()) {
     return
   }
+
   emit('add', { ...formData })
+
   Object.assign(formData, {
     name: "",
     price: 0,
     stock: 0,
     description: ""
   })
+
+  submitted.value = false
 }
 </script>
 
@@ -35,7 +52,7 @@ function submitForm(): void {
       <p>Ajouter un item</p>
     </h1>
     
-    <form @submit.prevent="submitForm" class="poe-form">
+    <form @submit.prevent="submitForm" class="poe-form" novalidate>
       <div class="poe-form-group">
         <label for="name" class="poe-label">Nom</label>
         <input 
@@ -43,9 +60,16 @@ function submitForm(): void {
           id="name" 
           name="name" 
           v-model="formData.name"
-          class="poe-input"
+          class="poe-input form-control"
+          :class="{ 'is-invalid': submitted && !formData.name.trim() }"
           placeholder="Entrer le nom de l'item"
         />
+        <div
+          v-if="submitted && !formData.name.trim()"
+          class="invalid-feedback"
+        >
+          Le nom est obligatoire.
+        </div>
       </div>
 
       <div class="poe-form-group">
@@ -56,9 +80,16 @@ function submitForm(): void {
           id="price" 
           name="price" 
           v-model.number="formData.price"
-          class="poe-input"
+          class="poe-input form-control"
+          :class="{ 'is-invalid': submitted && formData.price <= 0 }"
           placeholder="0.00"
         />
+        <div
+          v-if="submitted && formData.price <= 0"
+          class="invalid-feedback"
+        >
+          Le prix doit être supérieur à 0.
+        </div>
       </div>
 
       <div class="poe-form-group">
@@ -68,9 +99,16 @@ function submitForm(): void {
           id="stock" 
           name="stock" 
           v-model.number="formData.stock"
-          class="poe-input"
+          class="poe-input form-control"
+          :class="{ 'is-invalid': submitted && formData.stock < 0 }"
           placeholder="0"
         />
+        <div
+          v-if="submitted && formData.stock < 0"
+          class="invalid-feedback"
+        >
+          Le stock ne peut pas être négatif.
+        </div>
       </div>
 
       <div class="poe-form-group">
@@ -79,10 +117,17 @@ function submitForm(): void {
           id="description" 
           name="description"
           v-model="formData.description"
-          class="poe-textarea"
+          class="poe-textarea form-control"
+          :class="{ 'is-invalid': submitted && !formData.description.trim() }"
           placeholder="Entrer la description de l'item"
           rows="4"
         ></textarea>
+        <div
+          v-if="submitted && !formData.description.trim()"
+          class="invalid-feedback"
+        >
+          La description est obligatoire.
+        </div>
       </div>
       
       <button type="submit" class="poe-submit-btn">
@@ -137,7 +182,8 @@ function submitForm(): void {
   letter-spacing: 0.5px;
 }
 
-.poe-input, .poe-textarea {
+.poe-input,
+.poe-textarea {
   background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
   border: 1px solid #555;
   border-radius: 8px;
@@ -153,7 +199,8 @@ function submitForm(): void {
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
 }
 
-.poe-input:focus, .poe-textarea:focus {
+.poe-input:focus,
+.poe-textarea:focus {
   outline: none;
   border-color: #ffd700;
   box-shadow:
@@ -196,6 +243,16 @@ function submitForm(): void {
 
 .poe-submit-btn:active {
   transform: translateY(0);
+}
+
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin-top: 4px;
 }
 
 @media (max-width: 768px) {
