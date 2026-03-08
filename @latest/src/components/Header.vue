@@ -1,14 +1,17 @@
 <script setup lang="ts">
+import Research from "./Research.vue";
+import CSVDownload from "./CSVDownload.vue";
 </script>
 
 <template>
   <header class="poe-header">
-    <img 
-      src="/src/assets/images/image.png" 
-      alt="Logo Path of Exile" 
+    <img
+      src="/src/assets/images/image.png"
+      alt="Logo Path of Exile"
       class="poe-logo"
     />
     <p class="poe-title">Path Of Exile Vente d'items</p>
+    <Research />
   </header>
 </template>
 
@@ -49,11 +52,11 @@
     padding: 12px 16px;
     height: 70px;
   }
-  
+
   .poe-logo {
     height: 50px;
   }
-  
+
   .poe-title {
     font-size: 24px;
   }

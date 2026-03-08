@@ -11,6 +11,7 @@ const emit = defineEmits<{
   (e: "edit", id: number): void;
   (e: "duplicate", id: number): void;
 }>();
+
 </script>
 
 <template>
@@ -40,14 +41,12 @@ const emit = defineEmits<{
               </div>
             </td>
             <td>
+
               <div v-if="item.stock < 4" class="poe-box bg-danger">
                 {{ item.stock }}
               </div>
 
-              <div
-                v-else-if="item.stock <= 10"
-                class="poe-box bg-warning"
-              >
+              <div v-else-if="item.stock <= 10" class="poe-box bg-warning">
                 {{ item.stock }}
               </div>
 
@@ -161,17 +160,16 @@ const emit = defineEmits<{
   color: red !important;
 }
 
-
 .poe-box.bg-warning {
   background: var(--bs-warning) !important;
   border-color: var(--bs-warning) !important;
-  color : yellow !important;
+  color: yellow !important;
 }
 
 .poe-box.bg-success {
   background: var(--bs-success) !important;
   border-color: var(--bs-success) !important;
-  color : green !important;
+  color: green !important;
 }
 
 .poe-desc {
@@ -210,7 +208,7 @@ const emit = defineEmits<{
 
 .poe-edit {
   background: linear-gradient(145deg, #ffaa00, #dd8800);
-  color: #333;
+  color: white;
 }
 
 .poe-duplicate {

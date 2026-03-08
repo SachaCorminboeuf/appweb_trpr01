@@ -5,10 +5,18 @@ import DeleteConfirmation from "./DeleteConfirmation.vue";
 import { ref } from "vue";
 import type { Item } from "../scripts/item";
 
+
 import itemsData from "../scripts/item";
 import ShowDetails from "./ShowDetails.vue";
 import EditItem from "./EditItem.vue";
-import ConfirmDuplicate from "./confirmDuplicate.vue";
+import ConfirmDuplicate from "./ConfirmDuplicate.vue";
+import CSVDownload from "./CSVDownload.vue";
+import LowStockAlert from "./LowStockAlert.vue";
+
+const isLowStockAlertOpen = ref(false);
+const lowStockItemName = ref("");
+const lowStockValue = ref(0);
+
 
 const items = ref<Item[]>([...itemsData]);
 let nextId = items.value.length + 1;
@@ -43,16 +51,25 @@ function handleEdit(editedItemData: Omit<Item, "id">): void {
   const existingItem = items.value.find(
     (item) => item.id === selectedEditItemId.value,
   );
+
   if (existingItem) {
+    const oldStock = existingItem.stock;
+
     const updatedItem: Item = {
       ...existingItem,
       ...editedItemData,
     };
+
     items.value = items.value.map((item) =>
       item.id === existingItem.id ? updatedItem : item,
     );
+
+    if (oldStock >= 4 && updatedItem.stock < 4) {
+      openLowStockAlert(updatedItem.name, updatedItem.stock);
+    }
   }
 }
+
 
 function saveEditedItem(editedItemData: Omit<Item, "id">): void {
   handleEdit(editedItemData);
@@ -116,6 +133,18 @@ function closeDuplicateItem(): void {
   isDuplicateModalOpen.value = false;
   selectedDuplicateItemId.value = null;
 }
+
+function openLowStockAlert(name: string, stock: number): void {
+  lowStockItemName.value = name;
+  lowStockValue.value = stock;
+  isLowStockAlertOpen.value = true;
+}
+
+function closeLowStockAlert(): void {
+  isLowStockAlertOpen.value = false;
+  lowStockItemName.value = "";
+  lowStockValue.value = 0;
+}
 </script>
 
 <template>
@@ -132,6 +161,7 @@ function closeDuplicateItem(): void {
       @close="closeDetails"
     />
     <AddItemForm @add="handleAdd" />
+    <CSVDownload :items="items" />
     <ShowItemList
       :items="items"
       @delete="openDeleteConfirm"
@@ -177,6 +207,15 @@ function closeDuplicateItem(): void {
       @save="duplicateWithChanges"
       @close="closeDuplicateItem"
     />
+    
+
+    <LowStockAlert
+  :show="isLowStockAlertOpen"
+  :item-name="lowStockItemName"
+  :stock="lowStockValue"
+  @close="closeLowStockAlert"
+/>
+
   </div>
 </template>
 
