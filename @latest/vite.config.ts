@@ -4,5 +4,5 @@ import vue from "@vitejs/plugin-vue";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  base: "/appweb-trpr01/",
+  base: "/appweb_trpr01/",
 });
