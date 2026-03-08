@@ -30,15 +30,15 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: ./@latest/package-lock.json
+          cache-dependency-path: ./appweb_trpr01/package-lock.json
 
       - name: Install dependencies
         run: npm ci
-        working-directory: ./@latest
+        working-directory: ./appweb_trpr01
 
       - name: Build
         run: npm run build
-        working-directory: ./@latest
+        working-directory: ./appweb_trpr01
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -46,7 +46,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./@latest/dist
+          path: ./appweb_trpr01/dist
 
       - name: Deploy to GitHub Pages
         id: deployment
