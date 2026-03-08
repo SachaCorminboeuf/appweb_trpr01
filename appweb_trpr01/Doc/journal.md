@@ -51,6 +51,8 @@ Commencé l'ajout de la fonctionnalité de modification et de dupplication d'un 
 **Travail réalisé**
 
 J'ai fais tous le côté affichage du components EditItem avec les props et emit.
+J'ai décidé d'utiliser des modals pour l'affichage de la modification et la dupplication parce que je trouvais que c'était une bonne idée que l'utlisateur devait absolument traité
+sois la dupplication et la modification directement sans avoir accès au reste du site.
 Il reste juste à finir la fonction pour l'instant elle ne fonctionne pas.
 Ensuite, j'ai aussi fais tous le côté affichage de la dupplication d'item dans le components duplicateItems. La fonction n'a pas encore été faite.
 J'ai rajouté le nom de l'item dans la confirmation de suppresion (avant seulement le id).
@@ -66,8 +68,11 @@ Ajouté la fonctionnalité pour le stock qui est bas, ajouté le téléchargemen
 J'ai commencé par finaliser la fonctionnalité de dupplication et de moddification d'items.
 Ensuite, j'ai ajouté un formulaire à la dupplication et non seulement juste un ajout identique avec un nouvel id.
 J'ai travaillé sur l'affichage des bouttons pour que tous les bouttons soient droit.
+J'ai décidé d'utiliser 4 différentes couleurs de bouton avec chaqun leur utilité. Le rouge pour la suppresion, le vert pour voir plus de détail puisque qu'il est possible de cliqué sans aucune conséquences, le jaune pour la modification puisque l'item se modifie mais ne se supprime pas donc conséquences mineures et finalement le bleu pour la dupplication puisque c'est une couleur qui allait bien avec le reste des couleurs tout en gardant peu de conséquences si utilisé.
 J'ai ajouté dans la liste et dans le plus de détails la couleur de la boîte et du texte du stock dépendament de la quantité qu'il reste.
 J'ai ajouté une alerte quand le stock d'un item descent en bas de 4.
+J'ai décidé d'utiliser une alerte de bootstrap pour que l'utilisateur soit avertis et qu'il soit impossible que la notification soit ignorées.
 J'ai ensuite ajouté la possibilité de faire le téléchargement de la liste d'item en CSV.
 J'ai ajouté la possibilité de faire une recherche en temps réel.
 Finalement, j'ai fais le déployment de l'application sur github pages.
+J'ai eu de la difficulté avec le déployment de l'application. Au début, je pensais que c'était dû à la mauvaise base dans le dossier vite.config.ts. Mais après quelques tests j'ai réaliser que le déployment ne se lançais jamais puisque mon dossier .github était à l'intérieur du dossier appweb_tpr01 au lieux d'être à la racine du projet.
